@@ -1,0 +1,9 @@
+# Metrics reporting
+metrics:
+  reporters:
+    - type: influxdb
+      sender:
+        type: http
+        database: mydb
+
+
