@@ -3,7 +3,11 @@ package com.example.application;
 import com.codahale.metrics.ConsoleReporter;
 import com.codahale.metrics.ScheduledReporter;
 //import com.izettle.metrics.dw.InfluxDbReporterFactory;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import io.dropwizard.Application;
+import io.dropwizard.Configuration;
+import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
 import java.util.concurrent.TimeUnit;
@@ -14,6 +18,12 @@ public class ExampleApplication extends Application<ExampleConfiguration>{
 
     public static void main(String[] args) throws Exception {
         new ExampleApplication().run(args);
+    }
+
+    @Override
+    public void initialize(final Bootstrap<ExampleConfiguration> bootstrap) {
+        super.initialize(bootstrap);
+        bootstrap.getObjectMapper().registerModule(new ParameterNamesModule(JsonCreator.Mode.PROPERTIES));
     }
 
     @Override

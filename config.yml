@@ -2,8 +2,18 @@
 metrics:
   reporters:
     - type: influxdb
+      globalTags:
+        env: production
+      metricTemplates:
+        services:
+          pattern: com\.kickstarter\.services\.(?<service>[A-Za-z]+).*
+          tagKeys: ["service"]
+      groupGauges: true
+      groupCounters: false
       sender:
-        type: http
-        database: mydb
+        type: tcp
+        host: localhost
+        port: 90210
+        timeout: 5000000 days # keep alive as long as possible
 
 
